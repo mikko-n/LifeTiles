@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>LifeTiles</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+    <label for="birthdate">Birthday:</label> <input id="birthdate" type="date">
+    <div id="container">
+    </div>
+
+    <script>
+        var input = document.getElementById("birthdate")
+        input.addEventListener("change", printWeekChart);
+
+        printWeekChart();
+
+        function printWeekChart() {
+            var week = 1;
+            var birthDay = new Date();
+            var birthDayInput = document.getElementById("birthdate");
+        
+            if(birthDayInput.value != "") {
+                birthDay = birthDayInput.valueAsDate;
+            }
+            
+            var lastBirthDay = new Date(birthDay);
+            lastBirthDay.setFullYear(birthDay.getFullYear()+90);
+
+            var theEnd = weeksElapsedFrom(birthDay, lastBirthDay);
+            var currentWeek = weeksElapsedFrom(birthDay, new Date());
+            var containerHTML = "";
+            
+            containerHTML += "<div id=\"weekNo\" class=\"weekNo\">0</div>";
+
+            while (week < theEnd) {
+                containerHTML += "<div id=\"week"+week+"\" class=\"week";
+                
+                if (week < currentWeek) { containerHTML += " spent"; }
+                else if (week == currentWeek) { containerHTML += " current"; }
+                else { containerHTML += " available"; }
+                
+                if (isBirthdayWeek(week, birthDay)) 
+                { 
+                    // console.log("week: "+week);
+                    containerHTML += " birthday";
+                }            
+                
+                containerHTML += "\"></div>";
+                
+                if (week % 52 == 0 && week != 0) {                
+                    containerHTML += "<br/>";
+                    containerHTML += "<div id=\"weekNo\" class=\"weekNo\">"+(week/52)+"</div>";
+                }
+                
+                week++;
+            }
+            document.getElementById("container").innerHTML = containerHTML;
+        }
+
+        
+        function isBirthdayWeek(weeksFromBirth, birthDate) {
+            // special case: week 1
+            if (weeksFromBirth == 1) {
+                return true;
+            }
+  
+            var millisFromBirth = weeksFromBirth * 604800000; // = 1000*60*60*24*7
+
+            // last day of current week           
+            var lastDayOfCurrentWeek = new Date(birthDate.getTime() + millisFromBirth);
+            
+            // birthday for current year
+            birthDate.setFullYear(lastDayOfCurrentWeek.getFullYear());
+
+            // is birthday week?
+            // -birthday at or before current week's first day
+            // -time difference to bDay less than 6 days
+            if (birthDate <= lastDayOfCurrentWeek) {
+                var bdayDistanceMillis = (lastDayOfCurrentWeek - birthDate);
+                var distanceDays = (bdayDistanceMillis-10)/86400000; // =1000/60/60/24;
+                return distanceDays < 6;
+            }            
+            return false;
+        }
+
+        function weeksElapsedFrom(beginDate, toDate) {            
+            return Math.round((toDate-beginDate)/604800000); // =1000/60/60/24/7
+        }
+        </script>
+
+</body>
+
+</html>

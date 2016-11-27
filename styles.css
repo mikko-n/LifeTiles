@@ -1,0 +1,31 @@
+#container {
+    transform: scale(0.5,0.5);
+    transform-origin: 0px 0px;
+    margin-top: 10px;
+}
+
+.week, .weekNo {
+    display: inline-block;
+    width: 10px;
+    height:10px;
+}
+.week {
+    font-size: 6px;
+}
+.weekNo {
+    width: 40px;
+}
+.week.spent.birthday, .week.available.birthday {
+    border-bottom: 2px solid gold;
+    background-color: gold;
+}
+.week.spent {    
+    border: 1px solid red;
+}
+.week.current {    
+    background-color: blue;
+    border: 1px solid blue;
+}
+.week.available {    
+    border: 1px solid green;
+}
