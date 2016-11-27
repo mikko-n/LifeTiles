@@ -38,7 +38,7 @@
             var currentWeek = weeksElapsedFrom(birthDay, new Date());
             var containerHTML = "";
             
-            containerHTML += "<div id=\"weekNo\" class=\"weekNo\">0</div>";
+            containerHTML += "<div id=\"year\" class=\"year\"><span class=\"yearNo\">0</span>";
 
             while (week < theEnd) {
                 containerHTML += "<div id=\"week"+week+"\" class=\"week";
@@ -56,8 +56,8 @@
                 containerHTML += "\"></div>";
                 
                 if (week % 52 == 0 && week != 0) {                
-                    containerHTML += "<br/>";
-                    containerHTML += "<div id=\"weekNo\" class=\"weekNo\">"+(week/52)+"</div>";
+                    containerHTML += "</div>";
+                    containerHTML += "<div id=\"year\" class=\"year\"><span class=\"yearNo\">"+(week/52)+"</span>";
                 }
                 
                 week++;

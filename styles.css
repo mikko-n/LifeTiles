@@ -1,21 +1,30 @@
 #container {
-    transform: scale(0.5,0.5);
-    transform-origin: 0px 0px;
     margin-top: 10px;
+    line-height: 0px;
     min-width: 720px;
 }
 
-.week, .weekNo {
-    display: inline-block;
-    width: 10px;
-    height:10px;
+.year {
+    display: block;
+    width: auto;
 }
+
+.yearNo {
+    display: inline-block;
+    width: 1em;
+    margin-right: 10px;
+    font-size: 10px;
+    text-align: right
+}
+
 .week {
+    display: inline-block;
+    width: 6px;
+    height:6px;
     font-size: 6px;
 }
-.weekNo {
-    width: 40px;
-}
+
+
 .week.spent.birthday, .week.available.birthday {
     border-bottom: 2px solid gold;
     background-color: gold;
