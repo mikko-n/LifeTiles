@@ -18,19 +18,28 @@
 
     <script>
         var input = document.getElementById("birthdate")
-        input.addEventListener("change", printWeekChart);
+        input.addEventListener("change", birthdateChangeListener);
 
-        printWeekChart();
+        document.getElementById("container").innerHTML = printWeekChart();
+        
+        function birthdateChangeListener() {
 
-        function printWeekChart() {
-            var week = 1;
             var birthDay = new Date();
             var birthDayInput = document.getElementById("birthdate");
         
             if(birthDayInput.value != "") {
                 birthDay = birthDayInput.valueAsDate;
             }
-            
+
+            document.getElementById("container").innerHTML = printWeekChart(birthDay);
+        }
+
+        function printWeekChart(birthDay) {
+            var week = 1;
+            if (birthDay == undefined) {
+                var birthDay = new Date();
+            }
+                        
             var lastBirthDay = new Date(birthDay);
             lastBirthDay.setFullYear(birthDay.getFullYear()+90);
 
@@ -62,11 +71,11 @@
                 
                 week++;
             }
-            document.getElementById("container").innerHTML = containerHTML;
+            return containerHTML;
         }
 
         
-        function isBirthdayWeek(weeksFromBirth, birthDate) {
+        function isBirthdayWeek(weeksFromBirth, birthDay) {
             // special case: week 1
             if (weeksFromBirth == 1) {
                 return true;
@@ -75,9 +84,10 @@
             var millisFromBirth = weeksFromBirth * 604800000; // = 1000*60*60*24*7
 
             // last day of current week           
-            var lastDayOfCurrentWeek = new Date(birthDate.getTime() + millisFromBirth);
+            var lastDayOfCurrentWeek = new Date(birthDay.getTime() + millisFromBirth);
             
-            // birthday for current year
+            // birthday for current year, copy var to not change outer scope bday
+            var birthDate = new Date(birthDay);        
             birthDate.setFullYear(lastDayOfCurrentWeek.getFullYear());
 
             // is birthday week?
