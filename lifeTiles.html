@@ -8,104 +8,38 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles.css">
-
+    <script src="weekChart.js" type="text/javascript" charset="UTF-8"></script>
 </head>
 
 <body>
-    <label for="birthdate">Birthday:</label> <input id="birthdate" type="date">
-    <div id="container">
+    <label for="birthdate">Birthday:</label> <input id="birthdate" type="date" />
+    
+    <div id="newEventInput">        
+        <div class="eventInputItem"><label for="eventdate">Date:</label> <input id="eventdate" type="date" /></div>
+        <div class="eventInputItem"><label for="eventdescription">Description:</label> <input id="eventdescription" type="text" /></div>
+        <div class="eventInputItem"><label for="eventcolor">Color:</label> <input id="eventcolor" type="color" /></div>
+        <div class="eventInputItem"><button id="addevent">+</button></div>
     </div>
+    <div id="eventsToShow"></div>
+    
+    <div id="container"></div>
 
-    <script>
-        var input = document.getElementById("birthdate")
-        input.addEventListener("change", birthdateChangeListener);
-
-        document.getElementById("container").innerHTML = printWeekChart();
-        
-        function birthdateChangeListener() {
-
-            var birthDay = new Date();
-            var birthDayInput = document.getElementById("birthdate");
-        
-            if(birthDayInput.value != "") {
-                birthDay = birthDayInput.valueAsDate;
+    <script type="text/javascript" charset="UTF-8">        
+        // onload event code snippet from: http://stackoverflow.com/a/807997        
+        if(window.attachEvent) {
+            window.attachEvent('onload', init);
+        } else {
+            if(window.onload) {
+                var curronload = window.onload;
+                var newonload = function(event) {
+                    curronload(event);
+                    init(event);
+                };
+                window.onload = newonload;
+            } else {
+                window.onload = init;
             }
-
-            document.getElementById("container").innerHTML = printWeekChart(birthDay);
         }
-
-        function printWeekChart(birthDay) {
-            var week = 1;
-            if (birthDay == undefined) {
-                var birthDay = new Date();
-            }
-                        
-            var lastBirthDay = new Date(birthDay);
-            lastBirthDay.setFullYear(birthDay.getFullYear()+90);
-
-            var theEnd = weeksElapsedFrom(birthDay, lastBirthDay);
-            var currentWeek = weeksElapsedFrom(birthDay, new Date());
-            var containerHTML = "";
-            
-            containerHTML += "<div id=\"year\" class=\"year\"><span class=\"yearNo\">0</span>";
-
-            while (week < theEnd) {
-                containerHTML += "<div id=\"week"+week+"\" class=\"week";
-                
-                if (week < currentWeek) { containerHTML += " spent"; }
-                else if (week == currentWeek) { containerHTML += " current"; }
-                else { containerHTML += " available"; }
-                
-                if (isBirthdayWeek(week, birthDay)) 
-                { 
-                    // console.log("week: "+week);
-                    containerHTML += " birthday";
-                }            
-                
-                containerHTML += "\"></div>";
-                
-                if (week % 52 == 0 && week != 0) {                
-                    containerHTML += "</div>";
-                    containerHTML += "<div id=\"year\" class=\"year\"><span class=\"yearNo\">"+(week/52)+"</span>";
-                }
-                
-                week++;
-            }
-            return containerHTML;
-        }
-
-        
-        function isBirthdayWeek(weeksFromBirth, birthDay) {
-            // special case: week 1
-            if (weeksFromBirth == 1) {
-                return true;
-            }
-  
-            var millisFromBirth = weeksFromBirth * 604800000; // = 1000*60*60*24*7
-
-            // last day of current week           
-            var lastDayOfCurrentWeek = new Date(birthDay.getTime() + millisFromBirth);
-            
-            // birthday for current year, copy var to not change outer scope bday
-            var birthDate = new Date(birthDay);        
-            birthDate.setFullYear(lastDayOfCurrentWeek.getFullYear());
-
-            // is birthday week?
-            // -birthday at or before current week's first day
-            // -time difference to bDay less than 6 days
-            if (birthDate <= lastDayOfCurrentWeek) {
-                var bdayDistanceMillis = (lastDayOfCurrentWeek - birthDate);
-                var distanceDays = (bdayDistanceMillis-10)/86400000; // =1000/60/60/24;
-                return distanceDays < 6;
-            }            
-            return false;
-        }
-
-        function weeksElapsedFrom(beginDate, toDate) {            
-            return Math.round((toDate-beginDate)/604800000); // =1000/60/60/24/7
-        }
-        </script>
-
+    </script>
 </body>
-
 </html>

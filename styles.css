@@ -2,8 +2,40 @@
     margin-top: 10px;
     line-height: 0px;
     min-width: 720px;
+    clear: both;
 }
 
+#newEventInput {
+    display: block;
+    margin-top: 10px;
+    height: 38px;
+}
+
+#newEventInput div.eventInputItem {
+    float: left;
+    margin-left: 17px;
+    position: relative;
+    height: 100%;
+}
+
+#newEventInput div.eventInputItem:first-of-type{
+    margin-left: 0px;
+}
+
+.eventInputItem input {
+    display: block;    
+    height: 15px;
+    padding: 0px;
+}
+
+.eventInputItem input[type="color"] {        
+    height: 18px;    
+}
+
+.eventInputItem button {
+    position: absolute;
+    bottom: 0;
+}
 .year {
     display: block;
     width: auto;
@@ -39,3 +71,10 @@
 .week.available {    
     border: 1px solid green;
 }
+
+span.event {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
