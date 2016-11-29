@@ -50,16 +50,21 @@ function eventJsonListener(event) {
     var eventCount = eventsJson.Events.length;
 
     for (var currentEventId = 0; currentEventId < eventCount; currentEventId++) {
-        var eventDate = new Date(eventsJson.Events[currentEventId].Date); // format: yyyy-mm-dd
+        var eventDate = new Date(eventsJson.Events[currentEventId].Date); // format: yyyy-mm-dd        
         var eventDescription = eventsJson.Events[currentEventId].Description; // text
         var eventColor = eventsJson.Events[currentEventId].Color; // #ffffff, see getEventHTML func (inline = true)
         
-        appendEventToWeekChart(eventDate, eventDescription, eventColor);
+        if (eventsJson.Events[currentEventId].EndDate) {
+            var eventEndDate = new Date(eventsJson.Events[currentEventId].EndDate);
+            appendPeriodToWeekChart(eventDate, eventEndDate, eventDescription, eventColor);
+        } else {
+            appendEventToWeekChart(eventDate, eventDescription, eventColor);
+        }
     }
 }
 
 function appendEventToWeekChart(eventDate, eventDescription, eventColor) {
-    appendWeekChart( ( weeksElapsedFrom(birthday_global, eventDate) + 1 ) );    
+    appendWeekChart( ( weeksElapsedFrom(birthday_global, eventDate) + 1 ), eventDescription, eventColor);    
 }
 
 function appendPeriodToWeekChart(startDate, endDate, description, color) {
