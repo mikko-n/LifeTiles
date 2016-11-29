@@ -5,9 +5,11 @@ function init(event) {
 
     var birthDayInput = document.getElementById("birthdate");
     var addEventInput = document.getElementById("addevent");
+    var addJsonInput = document.getElementById("eventJson");
 
     birthDayInput.addEventListener("change", birthdateChangeListener, false);
     addEventInput.addEventListener("click", eventButtonClickListener, false);
+    addJsonInput.addEventListener("paste", eventJsonListener, false);
 
     document.getElementById("container").innerHTML = printWeekChart();
 }
@@ -31,15 +33,31 @@ function eventButtonClickListener(event) {
         var eventDay = eventDateInput.valueAsDate;
         var eventDescription = eventDescriptionInput.value;
         var eventColor = eventColorInput.value;
-        var weekDivId = "week" + (weeksElapsedFrom(birthday_global, eventDay) + 1);
-        var weekDiv = document.getElementById(weekDivId);
-        var evntHtml = getEventHTML(eventDay, eventDescription, eventColor);
 
-        weekDiv.innerHTML = evntHtml;
-        event.cancelBubble();
-        event.stopPropagation();
+        appendEventToWeekChart(eventDay, eventDescription, eventColor);
     }
+}
 
+function eventJsonListener(event) {
+    var jsonInput = event.target;
+    var eventsJson = JSON.parse(jsonInput.value);
+    var eventCount = eventsJson.Events.length;
+
+    for (var currentEventId = 0; currentEventId < eventCount; currentEventId++) {
+        var eventDate = new Date(eventsJson.Events[currentEventId].Date); // format: yyyy-mm-dd
+        var eventDescription = eventsJson.Events[currentEventId].Description; // text
+        var eventColor = eventsJson.Events[currentEventId].Color; // #ffffff, see getEventHTML func
+        
+        appendEventToWeekChart(eventDate, eventDescription, eventColor);
+    }
+}
+
+function appendEventToWeekChart(eventDate, eventDescription, eventColor) {
+    var weekDivId = "week" + (weeksElapsedFrom(birthday_global, eventDate) + 1);
+    var weekDiv = document.getElementById(weekDivId);
+    var evntHtml = getEventHTML(eventDate, eventDescription, eventColor);
+
+    weekDiv.innerHTML += evntHtml;
 }
 
 function printWeekChart(birthDay) {

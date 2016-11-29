@@ -5,20 +5,30 @@
     clear: both;
 }
 
-#newEventInput {
-    display: block;
+h3, h4, h5 {
+    padding: 0;
+    margin: 0;
     margin-top: 10px;
+}
+
+label {
+    font-size: .8em;
+}
+
+.newEventInput {
+    display: block;
+    margin-top: 5px;
     height: 38px;
 }
 
-#newEventInput div.eventInputItem {
+.newEventInput div.eventInputItem {
     float: left;
     margin-left: 17px;
     position: relative;
     height: 100%;
 }
 
-#newEventInput div.eventInputItem:first-of-type{
+.newEventInput div.eventInputItem:first-of-type{
     margin-left: 0px;
 }
 
@@ -26,6 +36,15 @@
     display: block;    
     height: 15px;
     padding: 0px;
+}
+.eventInputItem textarea {    
+    display: block;
+    width: 30em;
+    height: 3em;
+    overflow: auto;
+    font-size: .8em;
+    z-index: 1;
+    position: relative;
 }
 
 .eventInputItem input[type="color"] {        
@@ -36,6 +55,7 @@
     position: absolute;
     bottom: 0;
 }
+
 .year {
     display: block;
     width: auto;
@@ -51,9 +71,10 @@
 
 .week {
     display: inline-block;
-    width: 6px;
-    height:6px;
+    width: 8px;
+    height: 8px;
     font-size: 6px;
+    box-sizing: border-box;
 }
 
 
@@ -73,8 +94,10 @@
 }
 
 span.event {
-    width: 100%;
-    height: 100%;
+     /* width & height = .week height/width minus .week border thickness (box-sizing property) */
+    width: 7px;
+    height: 7px;
     display: block;
+    position: absolute;
 }
 

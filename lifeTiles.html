@@ -13,16 +13,32 @@
 
 <body>
     <label for="birthdate">Birthday:</label> <input id="birthdate" type="date" />
-    
-    <div id="newEventInput">        
+    <h3>Add event:</h3>
+    <div class="newEventInput">        
         <div class="eventInputItem"><label for="eventdate">Date:</label> <input id="eventdate" type="date" /></div>
         <div class="eventInputItem"><label for="eventdescription">Description:</label> <input id="eventdescription" type="text" /></div>
         <div class="eventInputItem"><label for="eventcolor">Color:</label> <input id="eventcolor" type="color" /></div>
-        <div class="eventInputItem"><button id="addevent">+</button></div>
+        <div class="eventInputItem"><button id="addevent">+</button></div>        
     </div>
+
+    <h5>Or paste some json:</h5>
+    <div class="newEventInput">   
+        <div class="eventInputItem"><label for="eventJson">Json:</label>
+        <textarea id="eventJson">{"Events" : [
+	{ "Date": "2017-1-30", "Description" : "Event", "Color" : "#ff0000"},
+	{ "Date": "2017-5-20", "Description" : "Event", "Color" : "#ffff00"},
+	{ "Date": "2018-11-4", "Description" : "Event", "Color" : "#00ff00"},
+	{ "Date": "2028-3-14", "Description" : "Event", "Color" : "#00ffff"}
+	]
+}</textarea>
+        </div>
+    </div>
+
+    <br style="clear:both;"/>
+
     <div id="eventsToShow"></div>
     
-    <div id="container"></div>
+    <div id="container"><!-- populated from js --></div>
 
     <script type="text/javascript" charset="UTF-8">        
         // onload event code snippet from: http://stackoverflow.com/a/807997        
