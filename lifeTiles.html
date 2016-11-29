@@ -11,15 +11,14 @@
     <script src="weekChart.js" type="text/javascript" charset="UTF-8"></script>
 </head>
 
-<body>
-    <label for="birthdate">Birthday:</label> <input id="birthdate" type="date" />
-
+<body>    
     <div id="sidebar">        
         <img class="expand-icon" src="icon-expand-sidebar.png" />
-        
+
         <h3>Add event:</h3>
         <div class="newEventInput">
-            <div class="eventInputItem"><label for="eventdate">Date:</label> <input id="eventdate" type="date" /></div>
+            <div class="eventInputItem"><label for="eventdateFrom">Date:</label> <input id="eventdateFrom" type="date" /></div>
+            <div class="eventInputItem"><label for="eventdateTo">End date:</label> <input id="eventdateTo" type="date" /></div>
             <div class="eventInputItem"><label for="eventdescription">Description:</label> <input id="eventdescription" type="text" /></div>
             <div class="eventInputItem"><label for="eventcolor">Color:</label> <input id="eventcolor" type="color" value="#000000" /></div>
             <div class="eventInputItem"><button id="addevent">Add event</button></div>
@@ -38,12 +37,13 @@
             </div>
         </div>
     </div>
-    <br style="clear:both;" />
-
+    
     <div id="eventsToShow"></div>
-
-    <div id="container">
+    <div id="content">
+        <label for="birthdate">Birthday:</label> <input id="birthdate" type="date" />
+        <div id="container">
         <!-- populated from js -->
+        </div>
     </div>
 
     <script type="text/javascript" charset="UTF-8">        

@@ -1,5 +1,5 @@
-body {
-    margin-left: 5%;
+#content {
+    margin-left: 25px;
 }
 
 #container {
@@ -12,7 +12,7 @@ body {
 #sidebar {
     display: block;
     position: fixed;
-    z-index: 1;
+    z-index: 2;
     width: 300px;
     height: 100%;
     top: 0;
@@ -107,17 +107,8 @@ label {
     box-sizing: border-box;
 }
 
-
-.week.spent.birthday, .week.available.birthday {
-    border-bottom: 2px solid gold;
-    background-color: gold;
-}
 .week.spent {    
     border: 1px solid red;
-}
-.week.current {    
-    background-color: blue;
-    border: 1px solid blue;
 }
 .week.available {    
     border: 1px solid green;
@@ -129,5 +120,14 @@ span.event {
     height: 7px;
     display: block;
     position: absolute;
+}
+
+span.current {
+    background-color: blue;   
+    z-index: 1;
+}
+span.birthday {   
+    background-color: gold;
+    z-index: 1;
 }
 

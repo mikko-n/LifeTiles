@@ -7,9 +7,9 @@ function init(event) {
     var addEventInput = document.getElementById("addevent");
     var addJsonInput = document.getElementById("eventJson");
 
-    birthDayInput.addEventListener("change", birthdateChangeListener, false);
-    addEventInput.addEventListener("click", eventButtonClickListener, false);
-    addJsonInput.addEventListener("paste", eventJsonListener, false);
+    birthDayInput.addEventListener("change", birthdateChangeListener);
+    addEventInput.addEventListener("click", eventButtonClickListener);
+    addJsonInput.addEventListener("paste", eventJsonListener);
 
     document.getElementById("container").innerHTML = printWeekChart();
 }
@@ -25,16 +25,22 @@ function birthdateChangeListener(event) {
 }
 
 function eventButtonClickListener(event) {
-    var eventDateInput = document.getElementById("eventdate");
+    var eventDateInputFrom = document.getElementById("eventdateFrom");
+    var eventDateInputTo = document.getElementById("eventdateTo");
     var eventDescriptionInput = document.getElementById("eventdescription");
     var eventColorInput = document.getElementById("eventcolor");
 
-    if (eventDateInput.value != "") {
-        var eventDay = eventDateInput.valueAsDate;
+    if (eventDateInputFrom.value != "") {
+        var eventDay = eventDateInputFrom.valueAsDate;
         var eventDescription = eventDescriptionInput.value;
         var eventColor = eventColorInput.value;
 
-        appendEventToWeekChart(eventDay, eventDescription, eventColor);
+        if (eventDateInputTo.value != "") {
+            var periodEnd = eventDateInputTo.valueAsDate;
+            appendPeriodToWeekChart(eventDay, periodEnd, eventDescription, eventColor);
+        } else {
+            appendEventToWeekChart(eventDay, eventDescription, eventColor);
+        }
     }
 }
 
@@ -46,18 +52,30 @@ function eventJsonListener(event) {
     for (var currentEventId = 0; currentEventId < eventCount; currentEventId++) {
         var eventDate = new Date(eventsJson.Events[currentEventId].Date); // format: yyyy-mm-dd
         var eventDescription = eventsJson.Events[currentEventId].Description; // text
-        var eventColor = eventsJson.Events[currentEventId].Color; // #ffffff, see getEventHTML func
+        var eventColor = eventsJson.Events[currentEventId].Color; // #ffffff, see getEventHTML func (inline = true)
         
         appendEventToWeekChart(eventDate, eventDescription, eventColor);
     }
 }
 
 function appendEventToWeekChart(eventDate, eventDescription, eventColor) {
-    var weekDivId = "week" + (weeksElapsedFrom(birthday_global, eventDate) + 1);
-    var weekDiv = document.getElementById(weekDivId);
-    var evntHtml = getEventHTML(eventDate, eventDescription, eventColor);
+    appendWeekChart( ( weeksElapsedFrom(birthday_global, eventDate) + 1 ) );    
+}
 
-    weekDiv.innerHTML += evntHtml;
+function appendPeriodToWeekChart(startDate, endDate, description, color) {
+    var startWeek = weeksElapsedFrom(birthday_global, startDate) + 1;
+    var endWeek = weeksElapsedFrom(birthday_global, endDate) + 1;
+
+    for (var currentWeek = startWeek; currentWeek < endWeek; currentWeek++) {
+       appendWeekChart(currentWeek, description, color);
+    }
+}
+
+function appendWeekChart(weekNo, description, color) {
+    var currentWeekDivId = "week" + weekNo;
+    var weekDiv = document.getElementById(currentWeekDivId);
+    
+    weekDiv.innerHTML += getEventHTML(description, getParamsForEventHTML(true, color, undefined));
 }
 
 function printWeekChart(birthDay) {
@@ -78,16 +96,20 @@ function printWeekChart(birthDay) {
     while (week < theEnd) {
         containerHTML += "<div id=\"week" + week + "\" class=\"week";
 
-        if (week < currentWeek) { containerHTML += " spent"; }
-        else if (week == currentWeek) { containerHTML += " current"; }
+        if (week <= currentWeek) { containerHTML += " spent"; }        
         else { containerHTML += " available"; }
 
-        if (isBirthdayWeek(week, birthDay)) {
-            // console.log("week: "+week);
-            containerHTML += " birthday";
+        containerHTML += "\">";
+        
+        if (isBirthdayWeek(week, birthDay)) {              
+            containerHTML += getEventHTML("BirthDay", getParamsForEventHTML(false, undefined, "birthday"));            
         }
 
-        containerHTML += "\"></div>";
+        if (week == currentWeek) {
+            containerHTML += getEventHTML("Current week", getParamsForEventHTML(false, undefined, "current"));
+        }
+
+        containerHTML += "</div>";
 
         if (week % 52 == 0 && week != 0) {
             containerHTML += "</div>";
@@ -97,6 +119,14 @@ function printWeekChart(birthDay) {
         week++;
     }
     return containerHTML;
+}
+
+function getParamsForEventHTML(isInline, cssColor, cssClassName) {
+    var eventParams = new Object();
+    eventParams.isInline = isInline;
+    eventParams.inlineStyleColor = cssColor;
+    eventParams.cssClassName = cssClassName;
+    return eventParams;
 }
 
 function isBirthdayWeek(weeksFromBirth, birthDay) {
@@ -129,6 +159,10 @@ function weeksElapsedFrom(beginDate, toDate) {
     return Math.round((toDate - beginDate) / 604800000); // =1000/60/60/24/7
 }
 
-function getEventHTML(eventDate, eventDescription, eventColor) {
-    return "<span class=\"event\" style=\"background-color:" + eventColor + "\"></span>";
+function getEventHTML(eventDescription, params) {
+    if (params.isInline) {
+        return "<span class=\"event\" style=\"background-color:" + params.inlineStyleColor + "\"></span>";
+    } else {
+        return "<span class=\"event "+params.cssClassName+"\"></span>";
+    }
 }
