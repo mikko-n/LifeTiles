@@ -1,0 +1,156 @@
+
+$weekBlock-size: 8px;
+$borderThickness: 1px;
+$eventBlock-size: $weekBlock-size - $borderThickness;
+
+$sidebar-width: 300px;
+
+$color-currentWeek: blue;
+$color-birthDayWeek: gold;
+$color-available: #7AE282;
+$color-spent: #ff8888;
+$color-eventCountForWeek: red;
+$color-eventCountText: white;
+
+#content {
+    margin-left: 25px;
+}
+
+#container {
+    margin-top: 10px;
+    line-height: 0px;
+    min-width: 720px;
+    clear: both;
+}
+
+#sidebar {
+    display: block;
+    position: fixed;
+    z-index: 2;
+    width: $sidebar-width;
+    height: 100%;
+    top: 0;
+    left: -285px;
+
+    border-right: $borderThickness solid #000000;
+    background-color: #ffffff;    
+    padding-left: 10px;
+    transition: left 500ms ease-in-out;
+
+    &:hover {
+        left: 0;
+    }
+    
+    &:hover img.expand-icon {
+        transform: rotate(180deg);
+    }
+    
+    img.expand-icon {
+        display: block;
+        height: 20px;
+        top: 2px;
+        position: absolute;
+        right: 2px;
+        transition: transform 500ms;
+    }
+}
+
+h3, h4, h5 {
+    padding: 0;
+    margin: 0;
+    margin-top: 10px;
+    clear:both;
+}
+
+label {
+    font-size: .8em;
+}
+
+.newEventInput {
+    display: block;
+    margin-top: 5px;
+}
+
+.eventInputItem {
+    margin-top: 5px;
+
+    & input {
+        display: block;    
+        height: 15px;
+        padding: 0px;
+    }
+    
+    & input[type="color"] {        
+        height: 18px;    
+    }
+
+    & textarea {    
+        display: block;
+        width: 265px;
+        height: 3em;
+        overflow: auto;
+        font-size: .8em;
+        z-index: 1;
+        position: relative;
+        max-width: 280px;
+    }
+}
+.eventInputItem button {}
+
+.year {
+    display: block;
+    width: auto;
+}
+
+.yearNo {
+    display: inline-block;
+    width: 1em;
+    margin-right: 10px;
+    font-size: 10px;
+    text-align: right
+}
+
+.week {
+    display: inline-block;
+    width: $weekBlock-size;
+    height: $weekBlock-size;
+    font-size: 6px;
+    box-sizing: border-box;
+
+    &.spent {    
+        border: $borderThickness solid $color-spent;
+    }
+
+    &.available {    
+        border: $borderThickness solid $color-available;
+    }
+}
+
+
+span.event, span.eventCountForWeek {
+     /* width & height = .week height/width minus .week border thickness (box-sizing property) */
+    width: $eventBlock-size;
+    height: $eventBlock-size;
+    display: block;
+    position: absolute;
+}
+
+span.current {
+    background-color: $color-currentWeek;   
+    z-index: 1;
+}
+span.birthday {   
+    background-color: $color-birthDayWeek;
+    z-index: 1;
+}
+
+span.eventCountForWeek {
+    font-size: 9px;
+    z-index: 1;    
+    padding-top: 3px;
+    padding-left: 1px;
+    box-sizing: border-box;
+    color: $color-eventCountText;
+    font-weight: 600;
+    background-color: $color-eventCountForWeek;
+}

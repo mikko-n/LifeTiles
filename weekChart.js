@@ -79,8 +79,38 @@ function appendPeriodToWeekChart(startDate, endDate, description, color) {
 function appendWeekChart(weekNo, description, color) {
     var currentWeekDivId = "week" + weekNo;
     var weekDiv = document.getElementById(currentWeekDivId);
+        
+    if (weekDiv == null) {
+        weekDiv = document.getElementById("week1");   
+    }
+    
+    appendCurrentWeekEventCounter(weekDiv);
     
     weekDiv.innerHTML += getEventHTML(description, getParamsForEventHTML(true, color, undefined));
+}
+
+function appendCurrentWeekEventCounter(weekDiv) {           
+    var eventCountForWeek = weekDiv.getElementsByClassName("event").length;
+    
+    if ( 0 < eventCountForWeek ){
+        var eventCountContainer = getElementInsideContainerByClassName(weekDiv, "eventCountForWeek");
+
+        if (eventCountContainer == undefined) {
+            weekDiv.innerHTML += getEventCountContainerHTML();
+            eventCountContainer = getElementInsideContainerByClassName(weekDiv, "eventCountForWeek");
+        }
+    
+        // limit shown event count up to 9, else show + sign
+        eventCountContainer.innerHTML = eventCountForWeek < 9 ? (eventCountForWeek+1) : "+";        
+    }
+}
+
+function getEventCountContainerHTML() {
+    return "<span class=\"eventCountForWeek\"></span>";
+}
+
+function getElementInsideContainerByClassName(container, className) {    
+    return container.getElementsByClassName(className)[0];    
 }
 
 function printWeekChart(birthDay) {
