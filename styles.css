@@ -1,9 +1,9 @@
-/* line 15, sass/styles.scss */
+/* line 16, sass/styles.scss */
 #content {
   margin-left: 25px;
 }
 
-/* line 19, sass/styles.scss */
+/* line 20, sass/styles.scss */
 #container {
   margin-top: 10px;
   line-height: 0px;
@@ -11,7 +11,7 @@
   clear: both;
 }
 
-/* line 26, sass/styles.scss */
+/* line 27, sass/styles.scss */
 #sidebar {
   display: block;
   position: fixed;
@@ -25,15 +25,15 @@
   padding-left: 10px;
   transition: left 500ms ease-in-out;
 }
-/* line 40, sass/styles.scss */
+/* line 41, sass/styles.scss */
 #sidebar:hover {
   left: 0;
 }
-/* line 44, sass/styles.scss */
+/* line 45, sass/styles.scss */
 #sidebar:hover img.expand-icon {
   transform: rotate(180deg);
 }
-/* line 48, sass/styles.scss */
+/* line 49, sass/styles.scss */
 #sidebar img.expand-icon {
   display: block;
   height: 20px;
@@ -43,7 +43,7 @@
   transition: transform 500ms;
 }
 
-/* line 58, sass/styles.scss */
+/* line 59, sass/styles.scss */
 h3, h4, h5 {
   padding: 0;
   margin: 0;
@@ -51,32 +51,32 @@ h3, h4, h5 {
   clear: both;
 }
 
-/* line 65, sass/styles.scss */
+/* line 66, sass/styles.scss */
 label {
   font-size: .8em;
 }
 
-/* line 69, sass/styles.scss */
+/* line 70, sass/styles.scss */
 .newEventInput {
   display: block;
   margin-top: 5px;
 }
 
-/* line 74, sass/styles.scss */
+/* line 75, sass/styles.scss */
 .eventInputItem {
   margin-top: 5px;
 }
-/* line 77, sass/styles.scss */
+/* line 78, sass/styles.scss */
 .eventInputItem input {
   display: block;
   height: 15px;
   padding: 0px;
 }
-/* line 83, sass/styles.scss */
+/* line 84, sass/styles.scss */
 .eventInputItem input[type="color"] {
   height: 18px;
 }
-/* line 87, sass/styles.scss */
+/* line 88, sass/styles.scss */
 .eventInputItem textarea {
   display: block;
   width: 265px;
@@ -88,13 +88,13 @@ label {
   max-width: 280px;
 }
 
-/* line 100, sass/styles.scss */
+/* line 101, sass/styles.scss */
 .year {
   display: block;
   width: auto;
 }
 
-/* line 105, sass/styles.scss */
+/* line 106, sass/styles.scss */
 .yearNo {
   display: inline-block;
   width: 1em;
@@ -103,7 +103,7 @@ label {
   text-align: right;
 }
 
-/* line 113, sass/styles.scss */
+/* line 114, sass/styles.scss */
 .week {
   display: inline-block;
   width: 8px;
@@ -111,16 +111,16 @@ label {
   font-size: 6px;
   box-sizing: border-box;
 }
-/* line 120, sass/styles.scss */
+/* line 121, sass/styles.scss */
 .week.spent {
   border: 1px solid #ff8888;
 }
-/* line 124, sass/styles.scss */
+/* line 125, sass/styles.scss */
 .week.available {
-  border: 1px solid #7AE282;
+  border: 1px solid #45d150;
 }
 
-/* line 130, sass/styles.scss */
+/* line 131, sass/styles.scss */
 span.event, span.eventCountForWeek {
   /* width & height = .week height/width minus .week border thickness (box-sizing property) */
   width: 7px;
@@ -129,19 +129,19 @@ span.event, span.eventCountForWeek {
   position: absolute;
 }
 
-/* line 138, sass/styles.scss */
+/* line 139, sass/styles.scss */
 span.current {
   background-color: blue;
   z-index: 1;
 }
 
-/* line 142, sass/styles.scss */
+/* line 143, sass/styles.scss */
 span.birthday {
   background-color: gold;
   z-index: 1;
 }
 
-/* line 147, sass/styles.scss */
+/* line 148, sass/styles.scss */
 span.eventCountForWeek {
   font-size: 9px;
   z-index: 1;
