@@ -8,7 +8,6 @@ $sidebar-width: 300px;
 $color-currentWeek: blue;
 $color-birthDayWeek: gold;
 $color-available: #45d150;
-//$color-available: #7AE282;
 $color-spent: #ff8888;
 $color-eventCountForWeek: red;
 $color-eventCountText: white;
@@ -22,6 +21,11 @@ $color-eventCountText: white;
     line-height: 0px;
     min-width: 720px;
     clear: both;
+}
+
+img.titleImage {
+    display: block;
+    width: $weekBlock-size * 52;
 }
 
 #sidebar {
@@ -108,7 +112,7 @@ label {
     width: 1em;
     margin-right: 10px;
     font-size: 10px;
-    text-align: right
+    text-align: right;
 }
 
 .week {

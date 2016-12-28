@@ -165,6 +165,8 @@ function getParamsForEventHTML(isInline, cssColor, cssClassName) {
 }
 
 function isBirthdayWeek(weeksFromBirth, birthDay) {
+    // todo: bug with birthday at last week of the year
+    
     // special case: week 1
     if (weeksFromBirth == 1) {
         return true;
